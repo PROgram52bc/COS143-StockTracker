@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<script src="A8.js" defer></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<link href="A8.css" rel="stylesheet" type="text/css">
+		<meta charset="utf-8">
+		<title> Assignment 8 </title>
+	</head>
+
+	<body>
+		<h1 id="heading">Stock Tracker</h1>
+		<table id="main">
+			<tr id="tableheader">
+				<th>Symbol</th>
+				<th>Company Name</th>
+				<th>Open</th>
+				<th>Close</th>
+				<th>High</th>
+				<th>Low</th>
+				<th>Volume</th>
+				<th>Print Chart</th>
+				<th>Add to Portfolio</th>
+			</tr>
+		</table> <br>
+
+		<div id="filters">
+			<input type="text" id="codeInput" placeholder="Company code..." value="AMZN"></input> &nbsp;
+			<label for=startDate">Start Date:</label>
+			<input type="date" id="startDate"></input>
+			<label for="endDate">End Date:</label>
+			<input type="date" id="endDate"></input>
+			<button type="button" id="searchButton">Get Stock Data</button>
+		</div>
+		<p id="message">Welcome!</p>
+		<div id="chart"></div>
+
+	</body>
+</html>
