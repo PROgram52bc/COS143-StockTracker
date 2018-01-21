@@ -122,7 +122,10 @@ function appendFieldHandler(e) {
 	document.getElementById("main").appendChild(tableRow);
 
 	// event listener
-	portfolioBtn.addEventListener("click", function() {
+	portfolioDiv.addEventListener("click", function(e) {
+		e.stopPropagation();
+	});
+	portfolioBtn.addEventListener("click", function(e) {
 		var menu = this.parentNode.getElementsByClassName("portfolioMenu")[0];
 		menu.classList.add("active");
 	});
@@ -211,5 +214,5 @@ function drawChartHandler() {
 }
 
 searchButton.addEventListener("click", grabFields);
-
+document.getElementsByTagName("body")[0].addEventListener("click",deactiveAll);
 
