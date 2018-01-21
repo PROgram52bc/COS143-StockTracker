@@ -10,7 +10,7 @@
 
 	<body>
 		<h1 id="heading">Stock Tracker</h1>
-		<table id="main">
+		<table id="mainTable">
 			<tr id="tableheader">
 				<th>Symbol</th>
 				<th>Company Name</th>
@@ -25,15 +25,17 @@
 		</table> <br>
 
 		<div id="filters">
-			<input type="text" id="codeInput" placeholder="Company code..." value="AMZN"></input> &nbsp;
+			<label for"codeInput">Company code:</label>
+			<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"></input> &nbsp;
 			<label for=startDate">Start Date:</label>
-			<input type="date" id="startDate"></input>
+			<input type="date" id="startDate"></input> &nbsp;
 			<label for="endDate">End Date:</label>
-			<input type="date" id="endDate"></input>
+			<input type="date" id="endDate"></input> &nbsp;
 			<button type="button" id="searchButton">Get Stock Data</button>
 		</div>
 		<p id="message">Welcome!</p>
 		<div id="chart"></div>
+		<div id="portfolioTable"></div>
 
 	</body>
 </html>

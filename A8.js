@@ -108,24 +108,25 @@ function appendFieldHandler(e) {
 	// portfolioMenu
 	var portfolioMenu = document.createElement("div");
 	portfolioMenu.classList.add("portfolioMenu");
-	portfolioMenu.innerHTML = "<h4>Title</h4><input type=range></input>";
+	portfolioMenu.innerHTML = "";
 
 
 	// portfolioDiv
 	portfolioDiv.appendChild(portfolioBtn);
 	portfolioDiv.appendChild(portfolioMenu);
-	portfolioDiv.classList.add("portfolio");
+	portfolioDiv.classList.add("22rtfolio");
 
 	portfolioDatum.appendChild(portfolioDiv);
 	tableRow.appendChild(portfolioDatum);
 
-	document.getElementById("main").appendChild(tableRow);
+	document.getElementById("mainTable").appendChild(tableRow);
 
 	// event listener
 	portfolioDiv.addEventListener("click", function(e) {
-		e.stopPropagation();
+		e.stopPropagation(); // prevent from disappearing when clicking on inside the div
 	});
 	portfolioBtn.addEventListener("click", function(e) {
+		deactiveAll();
 		var menu = this.parentNode.getElementsByClassName("portfolioMenu")[0];
 		menu.classList.add("active");
 	});
@@ -135,9 +136,9 @@ function appendFieldHandler(e) {
 
 function deactiveAll() {
 	var actives = document.getElementsByClassName("active");
-	for (var i=0; i<actives.length; i++)
+	while (actives.length>0)
 	{
-		actives[i].classList.remove("active");
+		actives[0].classList.remove("active");
 	}
 }
 
@@ -160,6 +161,7 @@ function grabFields() {
 	}
 	var queryString = getDateQuery();
 	sendRequest(appendFieldHandler, codeInput.value, queryString);
+	message.innerHTML = "Searching...";
 }
 
 
@@ -214,5 +216,8 @@ function drawChartHandler() {
 }
 
 searchButton.addEventListener("click", grabFields);
+codeInput.addEventListener("keypress", function(e) {
+	if (e.keyCode===13) { grabFields(); }
+});
 document.getElementsByTagName("body")[0].addEventListener("click",deactiveAll);
 
