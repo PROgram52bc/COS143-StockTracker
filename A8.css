@@ -41,6 +41,11 @@ td > div {
 	position: relative;
 }
 
+#chart {
+	margin: 1%;
+	border: 2px solid black;
+	display: inline-block;
+}
 .portfolioMenu {
 	position: absolute;
 	text-align: center;
