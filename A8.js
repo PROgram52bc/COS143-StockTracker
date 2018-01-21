@@ -12,7 +12,7 @@ function sendRequest(loadHandler, dsCode="FB", queryString="", dbCode="WIKI") {
 		console.log("There is an error");
 	});
 	xhr.addEventListener("load", loadHandler);
-	var requestLink = "https://www.quandl.com/api/v3/datasets/"+dbCode+"/"+dsCode+".json?api_key=2snsTP9j_K_w_Y_7bNwy" 
+	var requestLink = "https://www.quandl.com/api/v3/datasets/"+dbCode+"/"+dsCode+".json?api_key=2snsTP9j_K_w_Y_7bNwy";
 	requestLink += queryString;
 	xhr.open("GET",requestLink);
 	xhr.send();
@@ -98,15 +98,46 @@ function appendFieldHandler(e) {
 
 	// Portfolio button
 	var portfolioDatum = document.createElement("td");
+	var portfolioDiv = document.createElement("div");
 	var portfolioBtn = document.createElement("button");
+
+	//portfolioButton
 	portfolioBtn.innerHTML = "Add";
-	portfolioDatum.appendChild(portfolioBtn);
+	portfolioBtn.classList.add("portfolioButton");
+
+	// portfolioMenu
+	var portfolioMenu = document.createElement("div");
+	portfolioMenu.classList.add("portfolioMenu");
+	portfolioMenu.innerHTML = "<h4>Title</h4><input type=range></input>";
+
+
+	// portfolioDiv
+	portfolioDiv.appendChild(portfolioBtn);
+	portfolioDiv.appendChild(portfolioMenu);
+	portfolioDiv.classList.add("portfolio");
+
+	portfolioDatum.appendChild(portfolioDiv);
 	tableRow.appendChild(portfolioDatum);
 
 	document.getElementById("main").appendChild(tableRow);
+
+	// event listener
+	portfolioBtn.addEventListener("click", function() {
+		var menu = this.parentNode.getElementsByClassName("portfolioMenu")[0];
+		menu.classList.add("active");
+	});
 	
 	clearFields();
 }
+
+function deactiveAll() {
+	var actives = document.getElementsByClassName("active");
+	for (var i=0; i<actives.length; i++)
+	{
+		actives[i].classList.remove("active");
+	}
+}
+
 
 function getDateQuery() {
 	var queryString = "";
@@ -177,9 +208,8 @@ function drawChartHandler() {
 		var materialChart = new google.charts.Line(chart);
 		materialChart.draw(data,options);
 	}
-
-
 }
 
 searchButton.addEventListener("click", grabFields);
+
 

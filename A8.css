@@ -16,10 +16,32 @@ button, input {
 button {
 	background: lightblue;
 	border-radius: 5px;
+	min-width: 100px;
 }
 
-td > button {
+button:hover {
+	box-shadow: 3px 3px 5px gray;
+}
+
+td button {
 	display: block;
 	margin: 0px auto;
 }
 
+td > div {
+	position: relative;
+}
+
+.portfolioMenu {
+	position: absolute;
+	display: none;
+	border: 2px solid black;
+	background-color: #EEE;
+}
+
+.portfolioMenu.active {
+	display: block;
+}
+
+.portfolioButton {
+}
