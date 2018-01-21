@@ -10,8 +10,8 @@
 
 	<body>
 		<h1 id="heading">Stock Tracker</h1>
-		<table id="main">
-			<tr id="tableheader">
+		<table id="mainTable">
+			<tr>
 				<th>Symbol</th>
 				<th>Company Name</th>
 				<th>Open</th>
@@ -21,19 +21,36 @@
 				<th>Volume</th>
 				<th>Print Chart</th>
 				<th>Add to Portfolio</th>
+				<th>Remove</th>
 			</tr>
 		</table> <br>
 
 		<div id="filters">
-			<input type="text" id="codeInput" placeholder="Company code..." value="AMZN"></input> &nbsp;
+			<label for"codeInput">Company code:</label>
+			<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"></input> &nbsp;
 			<label for=startDate">Start Date:</label>
-			<input type="date" id="startDate"></input>
+			<input type="date" id="startDate"></input> &nbsp;
 			<label for="endDate">End Date:</label>
-			<input type="date" id="endDate"></input>
+			<input type="date" id="endDate"></input> &nbsp;
 			<button type="button" id="searchButton">Get Stock Data</button>
 		</div>
 		<p id="message">Welcome!</p>
 		<div id="chart"></div>
+		<table id="portfolioTable">
+			<tr>
+				<th colspan="10">Portfolio</th>
+			</tr>
+			<tr>
+				<th>Symbol</th>
+				<th>Company Name</th>
+				<th>Shares Owned</th>
+				<th>Previous Value</th>
+				<th>Current Value</th>
+				<th>% Change</th>
+				<th>Remove</th>
+			</tr>
+
+		</table>
 
 	</body>
 </html>
