@@ -96,12 +96,12 @@ function appendFieldHandler(e) {
 	chartThisDatum.appendChild(chartThisBtn);
 	tableRow.appendChild(chartThisDatum);
 
-	// Portfolio button
+	// Portfolio elements
 	var portfolioDatum = document.createElement("td");
 	var portfolioDiv = document.createElement("div");
 	var portfolioBtn = document.createElement("button");
 
-	//portfolioButton
+	// portfolioButton
 	portfolioBtn.innerHTML = "Add";
 	portfolioBtn.classList.add("portfolioButton");
 
@@ -114,7 +114,7 @@ function appendFieldHandler(e) {
 	// portfolioDiv
 	portfolioDiv.appendChild(portfolioBtn);
 	portfolioDiv.appendChild(portfolioMenu);
-	portfolioDiv.classList.add("22rtfolio");
+	portfolioDiv.classList.add("portfolio");
 
 	portfolioDatum.appendChild(portfolioDiv);
 	tableRow.appendChild(portfolioDatum);
