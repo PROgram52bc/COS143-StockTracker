@@ -11,7 +11,7 @@
 	<body>
 		<h1 id="heading">Stock Tracker</h1>
 		<table id="mainTable">
-			<tr id="tableheader">
+			<tr>
 				<th>Symbol</th>
 				<th>Company Name</th>
 				<th>Open</th>
@@ -21,6 +21,7 @@
 				<th>Volume</th>
 				<th>Print Chart</th>
 				<th>Add to Portfolio</th>
+				<th>Remove</th>
 			</tr>
 		</table> <br>
 
@@ -35,7 +36,21 @@
 		</div>
 		<p id="message">Welcome!</p>
 		<div id="chart"></div>
-		<div id="portfolioTable"></div>
+		<table id="portfolioTable">
+			<tr>
+				<th colspan="10">Portfolio</th>
+			</tr>
+			<tr>
+				<th>Symbol</th>
+				<th>Company Name</th>
+				<th>Shares Owned</th>
+				<th>Previous Value</th>
+				<th>Current Value</th>
+				<th>% Change</th>
+				<th>Remove</th>
+			</tr>
+
+		</table>
 
 	</body>
 </html>

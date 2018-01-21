@@ -21,7 +21,6 @@ function sendRequest(loadHandler, dsCode="FB", queryString="", dbCode="WIKI") {
 function printHandler(e) {
 	console.log("printHandler ran");
 	console.dir(this.response);
-	globalResponse = this.response;
 }
 
 function clearFields() {
@@ -35,7 +34,7 @@ function getCompanyName(fullString) {
 	return /^[^(]+/.exec(fullString)[0];
 }
 
-function setColor(tr) {
+function setColorMain(tr) {
 	if (tr.children[3].innerHTML > tr.children[2].innerHTML) // good situation ^_^
 	{
 		tr.children[0].style.backgroundColor = "lightgreen";
@@ -49,6 +48,13 @@ function setColor(tr) {
 		tr.children[0].style.backgroundColor = "white";
 	}
 }
+
+function setColor(td, condition1, condition2) {
+	if (condition1) { td.style.backgroundColor = "lightgreen"; }
+	else if (condition2) { td.style.backgroundColor = "lightpink"; }
+	else { td.style.backgroundColor = "white"; }
+}
+
 
 function appendFieldHandler(e) {
 	if (this.response.dataset == undefined)
@@ -82,14 +88,13 @@ function appendFieldHandler(e) {
 		dataDatum.innerHTML = this.response.dataset.data[0][positionJson];
 		tableRow.appendChild(dataDatum);
 	}
-	setColor(tableRow);
+	setColorMain(tableRow);
 
 	// Chart button
 	var chartThisDatum = document.createElement("td");
 	var chartThisBtn = document.createElement("button");
 	chartThisBtn.innerHTML = "Chart This";
 	chartThisBtn.addEventListener("click", function() {
-		console.log("chart this button clicked!");
 		var code = this.parentNode.parentNode.children[0].innerHTML;
 		sendRequest(drawChartHandler, code, getDateQuery());
 	});
@@ -99,7 +104,7 @@ function appendFieldHandler(e) {
 	// Portfolio elements
 	var portfolioDatum = document.createElement("td");
 	var portfolioDiv = document.createElement("div");
-	var portfolioBtn = document.createElement("button");
+	var portfolioBtn = document.createElement("button"); // the button in the chart
 
 	// portfolioButton
 	portfolioBtn.innerHTML = "Add";
@@ -108,7 +113,30 @@ function appendFieldHandler(e) {
 	// portfolioMenu
 	var portfolioMenu = document.createElement("div");
 	portfolioMenu.classList.add("portfolioMenu");
-	portfolioMenu.innerHTML = "";
+
+	var portfolioTitle = document.createElement("h4");
+	portfolioTitle.innerHTML = "Amount To Add";
+	portfolioMenu.appendChild(portfolioTitle);
+
+	var portfolioInput = document.createElement("input");
+	portfolioInput.type = "number";
+	portfolioInput.classList.add("portfolioInput");
+	portfolioInput.value = 100;
+	portfolioMenu.appendChild(portfolioInput);
+
+	var addPortBtn = document.createElement("button"); // the button inside the port menu
+	addPortBtn.innerHTML = "OK";
+	addPortBtn.addEventListener("click", function() {
+		var code = this.parentNode.parentNode.parentNode.parentNode.children[0].innerHTML;
+		var shares = this.parentNode.getElementsByClassName("portfolioInput")[0].value;
+		
+		sendRequest(function() {
+			var data = this.response.dataset;
+			addToPortfolio(data, shares);
+			deactiveAll();
+		}, code);
+	});
+	portfolioMenu.appendChild(addPortBtn);
 
 
 	// portfolioDiv
@@ -120,6 +148,12 @@ function appendFieldHandler(e) {
 	tableRow.appendChild(portfolioDatum);
 
 	document.getElementById("mainTable").appendChild(tableRow);
+
+	// Remove button
+	var removeButton = getRemoveButton();
+	var removeDatum = document.createElement("td");
+	removeDatum.appendChild(removeButton);
+	tableRow.appendChild(removeDatum);
 
 	// event listener
 	portfolioDiv.addEventListener("click", function(e) {
@@ -142,6 +176,19 @@ function deactiveAll() {
 	}
 }
 
+function getRemoveButton() {
+	var removeButton = document.createElement("button");
+	removeButton.addEventListener("click", removeButtonHandler);
+	removeButton.innerHTML = "&#10006;";
+	return removeButton;
+}
+
+function removeButtonHandler() {
+	var row = this.parentNode.parentNode;
+	console.log(row);
+	row.parentNode.removeChild(row);
+}
+
 
 function getDateQuery() {
 	var queryString = "";
@@ -162,6 +209,10 @@ function grabFields() {
 	var queryString = getDateQuery();
 	sendRequest(appendFieldHandler, codeInput.value, queryString);
 	message.innerHTML = "Searching...";
+}
+
+function toDollars(d) {
+	return "$ " + d.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'); // from https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-dollars-currency-string-in-javascript
 }
 
 
@@ -215,6 +266,57 @@ function drawChartHandler() {
 	}
 }
 
+
+
+function addToPortfolio(data, sharesOwned = 100) { // data parameter: xhr.response.dataset from sendRequest()
+
+	var tableRow = document.createElement("tr");
+
+	var symbolDatum = document.createElement("td");
+	symbolDatum.innerHTML = data.dataset_code;
+	tableRow.appendChild(symbolDatum);
+
+	var nameDatum = document.createElement("td");
+	nameDatum.innerHTML = getCompanyName(data.name);
+	tableRow.appendChild(nameDatum);
+
+	var sharesDatum = document.createElement("td");
+	sharesDatum.innerHTML = sharesOwned;
+	tableRow.appendChild(sharesDatum);
+
+	var prevDatum = document.createElement("td");
+	var previousValue = data.data[1][4]; // closing price of 2nd recent per share
+	previousValue *= sharesOwned;
+	console.log("previous: "+previousValue);
+	prevDatum.innerHTML = toDollars(previousValue);
+	tableRow.appendChild(prevDatum);
+
+	var currDatum = document.createElement("td");
+	var currentValue = data.data[0][4]; 
+	currentValue *= sharesOwned;
+	console.log("current: "+currentValue);
+	currDatum.innerHTML = toDollars(currentValue);
+	tableRow.appendChild(currDatum);
+
+	var changeDatum = document.createElement("td");
+	var changeP = (currentValue - previousValue) / previousValue;
+	changeDatum.innerHTML = (changeP*100).toFixed(2)+"%";
+	setColor(changeDatum, changeP>0, changeP<0);
+	tableRow.appendChild(changeDatum);
+
+	var removeDatum = document.createElement("td");
+	var removeBtn = getRemoveButton();
+	removeDatum.appendChild(removeBtn);
+	tableRow.appendChild(removeDatum);
+
+	portfolioTable.appendChild(tableRow);
+
+}
+
+
+
+
+// Event listeners
 searchButton.addEventListener("click", grabFields);
 codeInput.addEventListener("keypress", function(e) {
 	if (e.keyCode===13) { grabFields(); }

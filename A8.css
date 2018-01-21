@@ -43,6 +43,7 @@ td > div {
 
 .portfolioMenu {
 	position: absolute;
+	text-align: center;
 	display: none;
 	border: 0;
 	border-radius: 10%;
@@ -71,5 +72,10 @@ td > div {
 	display: block;
 }
 
-.portfolioButton {
+.portfolioMenu > h4 {
+  margin: 0;
+}
+.portfolioInput {
+	max-width: 50%;
+	margin: 5%;
 }
