@@ -159,20 +159,22 @@ function appendFieldHandler(e) {
 	portfolioDiv.addEventListener("click", function(e) {
 		e.stopPropagation(); // prevent from disappearing when clicking on inside the div
 	});
-	portfolioBtn.addEventListener("click", function(e) {
-		deactiveAll();
+	portfolioBtn.addEventListener("click", function() {
 		var menu = this.parentNode.getElementsByClassName("portfolioMenu")[0];
-		menu.classList.add("active");
+		deactiveAll(menu);
+		menu.classList.toggle("active");
 	});
-	
+
 	clearFields();
 }
 
-function deactiveAll() {
-	var actives = document.getElementsByClassName("active");
-	while (actives.length>0)
+function deactiveAll(excpt=null) {
+	var actives = Array.from(document.getElementsByClassName("active"));
+	for (var i=0; i<actives.length; i++)
 	{
-		actives[0].classList.remove("active");
+		if (actives[i] === excpt)
+			continue;
+		actives[i].classList.remove("active");
 	}
 }
 
