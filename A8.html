@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<script src="A8.js" defer></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="https://www.gstatic.com/charts/loader.js"></script>
 		<link href="A8.css" rel="stylesheet" type="text/css">
 		<meta charset="utf-8">
 		<title> Assignment 8 </title>
@@ -26,19 +26,19 @@
 		</table> <br>
 
 		<div id="filters">
-			<label for"codeInput">Company code:</label>
-			<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"></input> &nbsp;
-			<label for=startDate">Start Date:</label>
-			<input type="date" id="startDate"></input> &nbsp;
+			<label for="codeInput">Company code:</label>
+			<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"> &nbsp;
+			<label for="startDate">Start Date:</label>
+			<input type="date" id="startDate"> &nbsp;
 			<label for="endDate">End Date:</label>
-			<input type="date" id="endDate"></input> &nbsp;
+			<input type="date" id="endDate"> &nbsp;
 			<button type="button" id="searchButton">Get Stock Data</button>
 		</div>
 		<p id="message">Welcome!</p>
 		<div id="chart"></div>
 		<table id="portfolioTable">
 			<tr>
-				<th colspan="10">Portfolio</th>
+				<th colspan="7">Portfolio</th>
 			</tr>
 			<tr>
 				<th>Symbol</th>
@@ -49,8 +49,9 @@
 				<th>% Change</th>
 				<th>Remove</th>
 			</tr>
-
 		</table>
-
+		<footer>
+			Team members: David Deng, Gabe Helmuth
+		</footer>
 	</body>
 </html>
