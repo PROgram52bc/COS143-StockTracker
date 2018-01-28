@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<script src="A8.js" defer></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="https://www.gstatic.com/charts/loader.js"></script>
 		<script src="login.js" defer></script>
 		<link href="login.css" rel="stylesheet" type="text/css">
 		<link href="A8.css" rel="stylesheet" type="text/css">
@@ -16,10 +16,10 @@
 			<fieldset id="operations">
 				<legend id="state">State: </legend>
 				<label for="username" class="state logout admin">Username: </label>
-				<input type="text" id="username" name="name" class="state logout admin"></input>
+				<input type="text" id="username" name="name" class="state logout admin">
 				<label for="username" id="usernameNotice"></label> <br>
 				<label for="password" class="state logout admin login">Password: </label>
-				<input type="password" id="password" name="password" class="logout admin login"></input>
+				<input type="password" id="password" name="password" class="logout admin login">
 				<label for="password" id="passwordNotice"></label> <br><br>
 				<button id="createButton" class="state logout">Create Account</button>
 				<button id="loginButton" class="state logout">Log in</button>
@@ -51,19 +51,19 @@
 			</table> <br>
 
 			<div id="filters">
-				<label for"codeInput">Company code:</label>
-				<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"></input> &nbsp;
-				<label for=startDate">Start Date:</label>
-				<input type="date" id="startDate"></input> &nbsp;
+				<label for="codeInput">Company code:</label>
+				<input type="text" id="codeInput" placeholder="eg. AMZN, FB..." value="AMZN"> &nbsp;
+				<label for="startDate">Start Date:</label>
+				<input type="date" id="startDate"> &nbsp;
 				<label for="endDate">End Date:</label>
-				<input type="date" id="endDate"></input> &nbsp;
+				<input type="date" id="endDate"> &nbsp;
 				<button type="button" id="searchButton">Get Stock Data</button>
 			</div>
 			<p id="message">Welcome!</p>
 			<div id="chart"></div>
 			<table id="portfolioTable">
 				<tr>
-					<th colspan="10">Portfolio</th>
+					<th colspan="7">Portfolio</th>
 				</tr>
 				<tr>
 					<th>Symbol</th>
